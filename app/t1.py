@@ -75,6 +75,7 @@ class MainWindow(QMainWindow):
         # Sidebar
         self.sidebar = QListWidget()
         self.sidebar.addItem("School")
+        self.sidebar.setMaximumWidth(300)
 
         # Stack
         self.stack = QStackedWidget()
@@ -90,7 +91,7 @@ class MainWindow(QMainWindow):
         self.sidebar.currentRowChanged.connect(self.stack.setCurrentIndex)
 
         main_layout.addWidget(self.sidebar)
-        main_layout.addWidget(self.stack)
+        main_layout.addWidget(self.stack, 1)
 
         central_widget.setLayout(main_layout)
         self.setCentralWidget(central_widget)
