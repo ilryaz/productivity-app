@@ -21,11 +21,14 @@ class SchoolPage(QWidget):
 
         layout.addLayout(self.create_subject_block('German'))
 
+        layout.addStretch()
+
     def create_subject_block(self, name):
         label = QLabel(name)
     
         input_field = QLineEdit()
         input_field.setPlaceholderText("Write here")
+        input_field.setFixedWidth(100)
 
         button = QPushButton("+")
         button.setFixedWidth(40)
@@ -33,6 +36,7 @@ class SchoolPage(QWidget):
         lower_layout = QHBoxLayout()
         lower_layout.addWidget(input_field)
         lower_layout.addWidget(button)
+        lower_layout.addStretch()
 
         block_layout = QVBoxLayout()
         block_layout.addWidget(label)
