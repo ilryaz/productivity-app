@@ -1,9 +1,8 @@
 import sys
 from PySide6.QtCore import Qt
-from PySide6.QtWidgets import (QApplication, QMainWindow, QLabel,
-                               QPushButton, QVBoxLayout, QWidget,
-                               QHBoxLayout, QListWidget, QStackedWidget,
-                               QScrollArea)
+from PySide6.QtWidgets import (QMainWindow, QLabel, QSplitter,
+                               QPushButton, QWidget,
+                               QHBoxLayout, QListWidget, QStackedWidget)
 from plugins.school.plugin import SchoolPlugin
     
 class MainWindow(QMainWindow):
@@ -14,9 +13,13 @@ class MainWindow(QMainWindow):
         central_widget = QWidget()
         main_layout = QHBoxLayout()
 
+        settings_panel = QWidget()
+        settings_panel.setFixedWidth(30)
+
         # Sidebar
         self.sidebar = QListWidget()
         self.sidebar.setMaximumWidth(300)
+        self.sidebar.setMinimumWidth(50)
 
         # Stack
         self.stack = QStackedWidget()
@@ -30,8 +33,16 @@ class MainWindow(QMainWindow):
 
         self.sidebar.currentRowChanged.connect(self.stack.setCurrentIndex)
 
-        main_layout.addWidget(self.sidebar)
-        main_layout.addWidget(self.stack, 1)
+        splitter = QSplitter(Qt.Horizontal)
+        splitter.setChildrenCollapsible(False)
+
+        splitter.addWidget(self.sidebar)
+        splitter.addWidget(self.stack)
+        splitter.setSizes([150, 800])
+        splitter.setStretchFactor(1, 1)
+
+        main_layout.addWidget(settings_panel)
+        main_layout.addWidget(splitter)
 
         central_widget.setLayout(main_layout)
         self.setCentralWidget(central_widget)
